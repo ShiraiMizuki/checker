@@ -2,7 +2,7 @@ name: AstroVials Stock Checker
 
 on:
   schedule:
-    - cron: '*/30 * * * *'     # Every 30 minutes
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -19,7 +19,9 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests beautifulsoup4
+        run: |
+          pip install --upgrade pip
+          pip install cloudscraper beautifulsoup4
 
       - name: Run stock checker
         env:
