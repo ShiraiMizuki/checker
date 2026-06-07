@@ -11,6 +11,7 @@ PRODUCTS = {
     "Estradiol Valerate (MCT)": "https://astrovials.com/product/estradiol-valerate/",
     "Estradiol Undecylate (MCT)": "https://astrovials.com/product/estradiol-undecylate/",
     "Estradiol Enanthate (Castor)": "https://astrovials.com/product/estradiol-enanthate-castor/",
+    "Erasadiol Enanthate (serapharma):https://serapharma.net/product/estradiol-enanthate/",
 }
 
 EMAIL_FROM = os.getenv("shirai110409@gmail.com")
