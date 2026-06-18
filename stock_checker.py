@@ -14,9 +14,11 @@ PRODUCTS = {
     "Erasadiol Enanthate (serapharma)": "https://serapharma.net/product/estradiol-enanthate/",
 }
 
-EMAIL_FROM = os.getenv("shirai110409@gmail.com")
-EMAIL_TO = os.getenv("filipm.zst@gmail.com")
-EMAIL_PASSWORD = os.getenv("1507 5713")
+# FIX: Strings are placed directly here. 
+# REMINDER: Replace 'YOUR_16_DIGIT_APP_PASSWORD' with your actual spaces-free Google App Password.
+EMAIL_FROM = "filipm.zst@gmail.com"
+EMAIL_TO = "filipm.zst@gmail.com"
+EMAIL_PASSWORD = "vmfojqjtmpsbebmx " 
 # ========================================================
 
 scraper = cloudscraper.create_scraper(
@@ -54,6 +56,7 @@ def send_email(subject, body):
         msg['From'] = EMAIL_FROM
         msg['To'] = EMAIL_TO
 
+        print(f"Attempting to send email from {EMAIL_FROM} to {EMAIL_TO}...")
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
             server.login(EMAIL_FROM, EMAIL_PASSWORD)
             server.sendmail(EMAIL_FROM, EMAIL_TO, msg.as_string())
@@ -63,7 +66,8 @@ def send_email(subject, body):
 
 def main():
     print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Starting AstroVials check...")
-    message = f"AstroVials Stock Update - {datetime.now().strftime('%Y-%m-%d %H:%M')}\n\n"
+    message = f"AstroVials Stock Update - {datetime.now().strftime('%Y-%m-%d %H:%M')}\n"
+    message += "--------------------------------------------------------\n\n"
     has_stock = False
 
     for name, url in PRODUCTS.items():
@@ -72,14 +76,18 @@ def main():
 
         if "IN STOCK" in status:
             has_stock = True
-            message += f"🚨 RESTOCK ALERT: {name} is now IN STOCK!\n{url}\n\n"
+            message += f"🚨 RESTOCK ALERT: {name} is now IN STOCK!\n👉 {url}\n\n"
+        else:
+            message += f"{name}: {status}\n"
 
-        message += f"{name}: {status}\n"
-
+    # CHANGED: The script now sends an email in BOTH cases.
     if has_stock:
-        send_email("🚨 AstroVials RESTOCK ALERT!", message)
+        subject = "🚨 AstroVials RESTOCK ALERT!"
     else:
-        print("   No items in stock.")
+        subject = "📋 AstroVials Stock Update (All Out of Stock)"
+        message += "\nNo items are currently available."
+
+    send_email(subject, message)
 
 if __name__ == "__main__":
     main()
