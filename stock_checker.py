@@ -12,6 +12,8 @@ PRODUCTS = {
     "Estradiol Undecylate (MCT)": "https://astrovials.com/product/estradiol-undecylate/",
     "Estradiol Enanthate (Castor)": "https://astrovials.com/product/estradiol-enanthate-castor/",
     "Erasadiol Enanthate (serapharma)": "https://serapharma.net/product/estradiol-enanthate/",
+    "Erasadiol Enanthate (proletahrt)": "https://www.proletahrt.com/Shop/Product?slug=estradiol-enanthate-40mgml-mct",
+    
 }
 
 # FIX: Strings are placed directly here. 
